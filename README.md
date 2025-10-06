@@ -24,7 +24,8 @@ Capture screenshots of the waveform and save the simulation logs. These will be 
 # Verilog Code
 # 4 bit Ripple Adder using Task
 // 4-bit Ripple Carry Adder using Task
-module ripple_adder_task (
+```
+module ripple_adder (
     input [3:0] A, B,
     input Cin,
     output reg [3:0] Sum,
@@ -50,15 +51,37 @@ module ripple_adder_task (
         Cout = c;
     end
 endmodule
-
+```
 
 # Test Bench
+```
+module ripple_adder_tb;
+reg [3:0] A,B;
+reg Cin;
+wire [3:0] Sum;
+wire Cout;
+
+ripple_adder uut(A,B,Cin,Sum,Cout);
+
+initial begin
+A=4'b0000; B=4'b0000; Cin=0;
+#10 A=4'b0101; B=4'b0011; Cin=0;
+#10 A=4'b1111; B=4'b0001; Cin=0;
+#10 A=4'b1010; B=4'b0101; Cin=1;
+#10 A=4'b1100; B=4'b1100; Cin=1;
+#10 $stop;
+end
+endmodule
+```
 
 # Output Waveform
 
+<img width="1919" height="1079" alt="Screenshot 2025-10-06 204235" src="https://github.com/user-attachments/assets/35fdb112-abcb-47b5-a277-8a20fd871c58" />
+
 # 4 bit Ripple counter using Function
 // 4-bit Ripple Counter using Function
-module ripple_counter_func (
+```
+module ripple_func (
     input clk, rst,
     output reg [3:0] Q
 );
@@ -74,12 +97,35 @@ module ripple_counter_func (
             Q <= count(Q);  // use function to increment
     end
 endmodule
-
+```
 # Test Bench
+```
+module ripple_func_tb;
+    reg clk_t, rst_t;
+    wire [3:0] q_t;
+
+    ripple_func dut(.clk(clk_t),.rst(rst_t),.Q(q_t));
+
+    initial 
+        begin
+            clk_t = 0;
+            rst_t = 1;
+          #5 
+            rst_t = 0;
+    end
+     always
+          #10  clk_t = ~clk_t;
+endmodule
+```
 
 
 # Output Waveform 
 
+<img width="1919" height="1079" alt="Screenshot 2025-10-06 204934" src="https://github.com/user-attachments/assets/901b044e-56bd-4476-bef3-9cfce88532f6" />
+
+# Conclution 
+
+In this experiment, a 4-bit-Ripple-counter-using-Function-and-4-bit-Ripple-Adder-using-task was successfully designed and simulated using Verilog HDL.
 
 # Conclusion
 In this experiment, a 4-bit-Ripple-counter-using-Function-and-4-bit-Ripple-Adder-using-task was successfully designed and simulated using Verilog HDL.
